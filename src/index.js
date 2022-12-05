@@ -54,6 +54,10 @@ function onFetchError(error) {
 };
 
 function createCountryCard(countries) {
+    let lang = '';
+    for (let key in languages) {
+        lang = languages[key];
+    }
     const countryCardMarkup = countries.map(country => {
         return `<div class="country-info-card"><img class="country-flag" src="${country.flags.svg}" alt="flag">
         <h1 class="country-name">${country.name.official}</h1><div>
@@ -65,7 +69,7 @@ function createCountryCard(countries) {
         <p>Population: ${country.population}</p>
         </li>
         <li class="country-item">
-        <p>Languages: ${languages}</p>
+        <p>Languages: ${lang}</p>
         </li>
         </ul>
         `
