@@ -40,7 +40,7 @@ function markupCountries(countries) {
         clearInput();
         createCountryCard(countries);
         return;
-    } else {
+    } else if (countries.length > 1 && countries.length < 10) {
         clearInput();
         createCountriesList(countries);
         return;
@@ -54,19 +54,20 @@ function onFetchError(error) {
 };
 
 function createCountryCard(countries) {
-    let lang = '';
+    
+    const countryCardMarkup = countries.map(({ name, capital, population, flags, languages }) => {
+        let lang = '';
     for (let key in languages) {
         lang = languages[key];
     }
-    const countryCardMarkup = countries.map(country => {
-        return `<div class="country-info-card"><img class="country-flag" src="${country.flags.svg}" alt="flag">
-        <h1 class="country-name">${country.name.official}</h1><div>
+        return `<div class="country-info-card"><img class="country-flag" src="${flags.svg}" width="210" height="160" alt="flag">
+        <h1 class="country-name">${name.official}</h1><div>
         <ul class="country-list"
         <li class="country-item">
-        <p>Capital: ${country.capital}</p>
+        <p>Capital: ${capital}</p>
         </li>
         <li class="country-item">
-        <p>Population: ${country.population}</p>
+        <p>Population: ${population}</p>
         </li>
         <li class="country-item">
         <p>Languages: ${lang}</p>
@@ -80,9 +81,9 @@ function createCountryCard(countries) {
 }
 
 function createCountriesList(countries) {
-    const countriesListMarkup = countries.map(country => {
+    const countriesListMarkup = countries.map(({name, flags}) => {
         return `
-        <li><img src="${flags.svg}" alt="flag" width="20" height="15">${country.name.official}</li>
+        <li><img src="${flags.svg}" alt="flag" width="20" height="15"><span class="span-text">${name.official}</span></li>
         `
     }).join("");
 
